@@ -3,6 +3,7 @@
 Route module for the API
 """
 
+
 import os
 from os import getenv
 from typing import Tuple
@@ -17,14 +18,12 @@ from api.v1.auth.session_db_auth import SessionDBAuth
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from api.v1.views import app_views
 
-# Set the FLASK_APP environment variable
-os.environ['FLASK_APP'] = 'api.v1.app'
-
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 # Create a variable auth initialized to None after the CORS definition
 auth = None
+
 
 # Update api/v1/app.py for using SessionAuth instance for the variable
 # auth depending of the value of the environment variable AUTH_TYPE, If
@@ -115,4 +114,3 @@ if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
     port = getenv("API_PORT", "5000")
     app.run(host=host, port=port, debug=True)
-
